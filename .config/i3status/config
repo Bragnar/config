@@ -59,7 +59,7 @@ ethernet _first_ {
         format_down = "<span background='#88c0d0'>  Disconnected </span>"
 }
 
-wireless wl_first_o1 {
+wireless _first_ {
         format_up = "<span background='#b48ead'>  %essid </span>"
         format_down = "<span background='#b48ead'>  Disconnected </span>"
 }
