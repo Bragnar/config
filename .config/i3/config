@@ -137,7 +137,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. What do you want to do ?' -b 'Close session' 'i3-msg exit' -b 'Shutdown' 'shutdown -h now' -b 'Reboot' 'shutdown -r now'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -192,6 +192,12 @@ exec --no-startup-id xautolock -detectsleep -notify 60 -notifier "/home/chamow/m
 #workspace $w2 output DP-2
 
 exec --no-startup-id nm-applet
+exec --no-startup-id volumeicon
+
+# Enable sync between PRIMARY and CLIPBOARD copy/paste buffers
+exec --no-startup-id autocutsel -fork
+exec --no-startup-id autocutsel -selection PRIMARY -fork
+ 
 
 # Review the lines below and append to ~/.config/i3/config
 
