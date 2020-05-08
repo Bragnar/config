@@ -136,7 +136,7 @@ bindsym $mod+Shift+0 move container to workspace $w10
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
+# exit i3
 bindsym $mod+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. What do you want to do ?' -b 'Close session' 'i3-msg exit' -b 'Shutdown' 'shutdown -h now' -b 'Reboot' 'shutdown -r now'"
 
 # resize window (you can also use the mouse for that)
@@ -176,20 +176,17 @@ bar {
         status_command i3status
 }
 
-#exec --no-startup-id "~/bin/autoxrandr.sh"
-
 # xautolock
 exec --no-startup-id xautolock -detectsleep -notify 60 -notifier "/home/chamow/mybin/mynotifier 60" -time 10 -locker 'i3lock -ti /home/chamow/.i3/lock.png'
 
 # Set screen positions
-#exec xrandr --output DP-2 --primary --right-of DP-1 --left-of HDMI-1
-#exec --no-startup-id --output DP-2 --primary --right-of DP-1 --left-of HDMI-1
-#exec --no-startup-id xrandr --output DP-2 --primary
-#exec --no-startup-id xrandr --output DP-1 --left-of DP-2
+# auto detect
+bindsym $mod+Shift+Ctrl+1 exec --no-startup-id "xrandr --auto"
+# desktop screen on the left
+bindsym $mod+Shift+Ctrl+2 exec --no-startup-id "~/.screenlayout/desktop-layout.sh left"
+# desktop screen on the right
+bindsym $mod+Shift+Ctrl+3 exec --no-startup-id "~/.screenlayout/desktop-layout.sh right"
 
-# Set workspace in each screen
-#workspace $w1 output DP-1
-#workspace $w2 output DP-2
 
 exec --no-startup-id nm-applet
 exec --no-startup-id volumeicon
@@ -197,7 +194,7 @@ exec --no-startup-id volumeicon
 # Enable sync between PRIMARY and CLIPBOARD copy/paste buffers
 exec --no-startup-id autocutsel -fork
 exec --no-startup-id autocutsel -selection PRIMARY -fork
- 
+
 
 # Review the lines below and append to ~/.config/i3/config
 
@@ -229,3 +226,26 @@ set $volumestep 5
 bindsym XF86AudioRaiseVolume exec $volumepath -np -i $volumestep -t $statuscmd -u $statussig
 bindsym XF86AudioLowerVolume exec $volumepath -np -d $volumestep -t $statuscmd -u $statussig
 bindsym XF86AudioMute        exec $volumepath -mn -t $statuscmd -u $statussig
+
+# Sreen brightness controls
+# increase screen brightness
+bindsym XF86MonBrightnessUp exec light -A 5 ; exec notify-send 'brightness up'
+# decrease screen brightness
+bindsym XF86MonBrightnessDown exec light -U 5 ; exec notify-send 'brightness down'
+
+# enable middle button touchpad by clicking both left and right buttons
+exec --no-startup-id synclient TapButton2=2
+exec --no-startup-id synclient TapButton3=3
+
+
+# https://github.com/ValveSoftware/steam-for-linux/issues/1040
+#for_window [class="^Steam$" title="^Friends$"] floating enable
+#for_window [class="^Steam$" title="Steam - News"] floating enable
+#for_window [class="^Steam$" title=".* - Chat"] floating enable
+#for_window [class="^Steam$" title="^Settings$"] floating enable
+#for_window [class="^Steam$" title=".* - event started"] floating enable
+#for_window [class="^Steam$" title=".* CD key"] floating enable
+#for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
+#for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
+#for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
+#for_window [title="^Steam Keyboard$"] floating enable
